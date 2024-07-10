@@ -1,30 +1,24 @@
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from  rest_framework import generics
-from .serializers import UserSerializer # NoteSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
-# from .models import Note
+from django.contrib.auth import authenticate
+from rest_framework import generics, status
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import UserSerializer, LoginSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
-# Create your views here.
-
-# class NoteListCreate(generics.ListCreateView):
-#     serializer_class = NoteSerializer
-#     permission_classes = [IsAuthenticated]
-
-#     def get_queryset(self):
-#         user = self.request.user
-#         return Note.objects.filter(author = user)
-    
-#     def perform_create(self, serializer):
-#         if serializer.is_valid():
-#             serializer.save(self.request.user)
-
-#         else:
-#             print(serializer.error())
-
-
-
-class CreateUserView(generics.CreateAPIView):
-    queryset = User.objects.all()
+class SignUpView(generics.CreateAPIView):
     serializer_class = UserSerializer
-    permission_classes =[AllowAny]
+    permission_classes = [AllowAny]  # Allow any user to access this view
+
+class SignInView(APIView):
+    permission_classes = [AllowAny]  # Allow any user to access this view
+
+    def post(self, request, *args, **kwargs):
+        serializer = LoginSerializer(data=request.data)  # Manually instantiate the serializer
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        })
