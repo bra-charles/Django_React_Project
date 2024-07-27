@@ -15,6 +15,7 @@ import {
   PageStyleProvider,
   usePageStyle,
 } from "./components/PageContext/PageStyleContext";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function Logout() {
   localStorage.clear();
@@ -31,7 +32,7 @@ function App() {
     <PageStyleProvider>
       <Router>
         <Routes>
-          {/* <Route path="/LP" element={<LandingPage />} /> */}
+          <Route path="/Admin" element={<AdminDashboard />} />
           <Route path="/signin" element={<FormsComponent signIn={true} />} />
           <Route path="/signup" element={<FormsComponent signIn={false} />} />
 
