@@ -56,6 +56,7 @@ export const Form = styled.form`
 export const Title = styled.h1`
   font-weight: bold;
   margin: 0;
+  color: #fff; 
 `;
 
 export const Input = styled.input`
@@ -92,7 +93,7 @@ export const GhostButton = styled(Button)`
 `;
 
 export const Anchor = styled.a`
-  color: #333;
+  color: #ffffff;
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;

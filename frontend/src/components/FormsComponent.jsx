@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Forms from "./form.js";
 import SignUpForm from "./SignUpForm";
 import SignInForm from "./SignInForm";
 import api from "../api";
+import { usePageStyle } from "./PageContext/PageStyleContext";
+
 
 function FormsComponent() {
+  const { setPageStyle } = usePageStyle();
+
+  useEffect(() => {
+    document.body.classList.add("auth-body");
+    setPageStyle("auth-body");
+    return () => {
+      document.body.classList.remove("auth-body");
+      setPageStyle("");
+    };
+  }, [setPageStyle]);
+
   const [signIn, toggle] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
