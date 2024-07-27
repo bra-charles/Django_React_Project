@@ -6,11 +6,10 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import FormsComponent from "./components/FormsComponent";
-// import Home from "./pages/Home";
+import FormsComponent from "./pages/FormsComponent";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
-import Chatbot from "./components/Chatbot";
+import Chatbot from "./pages/Chatbot";
 import "./styles/index.css";
 import {
   PageStyleProvider,

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import * as Forms from "./form.js";
-import SignUpForm from "./SignUpForm";
-import SignInForm from "./SignInForm";
-import api from "../api";
-import { usePageStyle } from "./PageContext/PageStyleContext";
+import * as Forms from "../components/Forms/form.js";
+import SignUpForm from "../components/Forms/SignUpForm";
+import SignInForm from "../components/Forms/SignInForm";
+import api from "../api.js";
+import { usePageStyle } from "../components/PageContext/PageStyleContext.jsx";
 
 
 function FormsComponent() {
