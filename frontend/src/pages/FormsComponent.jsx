@@ -3,11 +3,17 @@ import * as Forms from "../components/Forms/form.js";
 import SignUpForm from "../components/Forms/SignUpForm";
 import SignInForm from "../components/Forms/SignInForm";
 import api from "../api.js";
+import "../css/formComponents.scss";
 import { usePageStyle } from "../components/PageContext/PageStyleContext.jsx";
-
+import { message } from "antd";
+import qs from "qs";
+import { useAuth } from "../context/authContext.js";
+import { useNavigate } from "react-router-dom";
 
 function FormsComponent() {
   const { setPageStyle } = usePageStyle();
+  const { userProfile, setUserProfile } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.classList.add("auth-body");
@@ -18,11 +24,18 @@ function FormsComponent() {
     };
   }, [setPageStyle]);
 
+  useEffect(() => {
+    if (userProfile) {
+      userProfile.role === "student" ? navigate("/home") : navigate("/admin");
+    }
+  }, []);
+
   const [signIn, toggle] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -36,14 +49,18 @@ function FormsComponent() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/signup/", {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      });
+      const response = await api.post("/register/", formData);
       console.log("User signed up successfully:", response.data);
+      toggle(true);
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        role: "",
+      });
       // Handle success (e.g., redirect, show success message)
     } catch (error) {
+      console.log(error);
       console.error("Error signing up:", error.response?.data);
       // Handle error (e.g., show error message)
     }
@@ -52,20 +69,53 @@ function FormsComponent() {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/signin/", {
-        username: formData.username,
-        password: formData.password,
-      });
-      const { access, refresh } = response.data;
-      console.log("Access Token:", access);
-      console.log("Refresh Token:", refresh);
+      console.log(formData);
+      const response = await api.post(
+        "/token",
+        qs.stringify({
+          username: formData.username,
+          password: formData.password,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      const { access_token, token_type } = response.data;
+      console.log("Access Token:", access_token);
+      console.log("Refresh Token:", token_type);
 
       // Store tokens in local storage or any other state management solution
-      localStorage.setItem("access_token", access);
-      localStorage.setItem("refresh_token", refresh);
+      localStorage.setItem("access_token", access_token);
+      localStorage.setItem("refresh_token", token_type);
+      // setFormData({
+      //   email: "",
+      //   password: "",
+      // });
+
+      const userResponse = await api.get("/users/auth/current", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+
+      setUserProfile(userResponse.data);
+
+      userResponse.data.role === "student"
+        ? navigate("/home")
+        : navigate("/admin");
+
       // Handle success (e.g., redirect, show success message)
     } catch (error) {
+      if (typeof error.response?.data?.detail === "string")
+        message.error(error.response?.data?.detail);
       console.error("Error signing in:", error.response?.data);
+      setFormData((prevData) => ({
+        ...prevData,
+        username: "",
+      }));
       // Handle error (e.g., show error message)
     }
   };

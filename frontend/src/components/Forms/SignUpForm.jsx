@@ -1,5 +1,11 @@
 import React from "react";
-import { Form, Title, Input, Button } from "./form.js";
+import {
+  Form,
+  Title,
+  Input,
+  Button,
+} from "./form.js";
+
 
 const SignUpForm = ({ formData, handleChange, handleSubmit }) => (
   <Form onSubmit={handleSubmit}>
@@ -25,6 +31,28 @@ const SignUpForm = ({ formData, handleChange, handleSubmit }) => (
       value={formData.password}
       onChange={handleChange}
     />
+    <div className="role-inputs">
+        <label>
+          <input
+          type="radio"
+          name="role"
+          value={"lecturer"}
+          checked={formData.role === "lecturer"}
+          onChange={handleChange}
+          />
+          Lecturer
+        </label>
+        <label>
+          <input
+          type="radio"
+          name="role"
+          value={"student"}
+          checked={formData.role === "student"}
+          onChange={handleChange}
+          />
+          Student
+        </label>
+    </div>
     <Button type="submit">Sign Up</Button>
   </Form>
 );

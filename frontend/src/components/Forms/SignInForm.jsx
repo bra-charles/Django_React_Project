@@ -5,9 +5,9 @@ const SignInForm = ({ formData, handleChange, handleSubmit }) => (
   <Form onSubmit={handleSubmit}>
     <Title>Sign in</Title>
     <Input
-      type="text"
+      type="email"
       name="username"
-      placeholder="Username"
+      placeholder="Email"
       value={formData.username}
       onChange={handleChange}
     />

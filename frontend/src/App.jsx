@@ -16,6 +16,7 @@ import {
   usePageStyle,
 } from "./components/PageContext/PageStyleContext";
 import AdminDashboard from "./pages/AdminDashboard";
+import AuthProvider from "./components/AuthProvider.jsx";
 
 function Logout() {
   localStorage.clear();
@@ -30,29 +31,35 @@ function App() {
 
   return (
     <PageStyleProvider>
-      <Router>
-        <Routes>
-          <Route path="/Admin" element={<AdminDashboard />} />
-          <Route path="/signin" element={<FormsComponent signIn={true} />} />
-          <Route path="/signup" element={<FormsComponent signIn={false} />} />
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route
+              index
+              path="/signin"
+              element={<FormsComponent signIn={true} />}
+            />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/signup" element={<FormsComponent signIn={false} />} />
 
-          <Route path="/logout" element={<Logout />} />
-          {/* Protected Route */}
-          <Route
-            path="/home"
-            element={
-              isAuthenticated() ? <LandingPage /> : <Navigate to="/signin" />
-            }
-          />
-          <Route
-            path="/chat"
-            element={
-              isAuthenticated() ? <Chatbot /> : <Navigate to="/signin" />
-            }
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
+            <Route path="/logout" element={<Logout />} />
+            {/* Protected Route */}
+            <Route
+              path="/home"
+              element={
+                isAuthenticated() ? <LandingPage /> : <Navigate to="/signin" />
+              }
+            />
+            <Route
+              path="/chat"
+              element={
+                isAuthenticated() ? <Chatbot /> : <Navigate to="/signin" />
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </PageStyleProvider>
   );
 }

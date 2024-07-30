@@ -1,0 +1,51 @@
+.role-inputs {
+  width: 100%;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0.5rem 0;
+
+  label {
+    cursor: pointer; /* Change cursor to pointer for the entire label */
+    display: flex;
+    align-items: center;
+    color: white;
+
+    input[type="radio"] {
+      margin-right: 0.5rem;
+      cursor: pointer; /* Ensure the cursor is a pointer for the radio button itself */
+      appearance: none; /* Remove default styling */
+      width: 1rem; /* Set width */
+      height: 1rem; /* Set height */
+      border-radius: 50%; /* Make it a circle */
+      border: 2px solid #ccc; /* Default border color */
+      transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+      position: relative; /* To position the pseudo-element */
+    }
+    
+    input[type="radio"]:checked {
+      border-color: #00b497; /* Border color when selected */
+      background-color: #00b497; /* Background color when selected */
+    }
+    
+    input[type="radio"]:checked::after {
+      content: ""; /* Empty content for the pseudo-element */
+      display: block;
+      position: absolute;
+      top: 25%; /* Position in the center */
+      left: 25%; /* Position in the center */
+      width: 50%; /* Size of the inner circle */
+      height: 50%; /* Size of the inner circle */
+      border-radius: 50%; /* Make it a circle */
+      background-color: white; /* Inner circle color */
+    }
+    
+    input[type="radio"]:focus {
+      outline: none; /* Remove default outline */
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2); /* Optional: Add focus effect */
+    }
+  }
+}

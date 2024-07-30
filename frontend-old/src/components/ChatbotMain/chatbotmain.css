@@ -1,0 +1,132 @@
+.chatbotmain{
+    flex: 1;
+    min-height: 100vh;
+    padding-bottom: 15vh;
+    position: relative;
+}
+.chatbotmain .nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+    padding: 10px;
+    color: #c4c7c5;
+    font-weight: 600;
+}
+
+.chatbotmain .nav img{
+    width: 40px;
+    border-radius: 50%;
+}
+
+.main-container{
+    max-width: 900px;
+    margin: auto; 
+}
+.chatbotmain .greet{
+    margin: 35px 0px;
+    font-size: 46px;
+    color: #c4c7c5;
+    font-weight: 500;
+    padding: 20px; 
+}
+.chatbotmain .greet span{
+    background: -webkit-linear-gradient(16deg,#00b497,#ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
+}
+/* .chatbotmain .greet{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+} */
+/* .chatbotmain .greet img{
+    width: 40px;
+    height: 100px
+    
+} */
+.chatbotmain .cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(180px,1fr)); 
+    gap: 15px;
+    padding: 20px;
+}
+
+.chatbotmain .card{
+    height: 150px;
+    padding: 15px;
+    background: #00b497;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer; 
+}
+
+.chatbotmain .card img{
+    width: 28px;
+    padding: 5px;
+    background: #e6eaf1;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.chatbotmain .card p{
+    color: white;
+    font-size: 14px;
+}
+
+.chatbotmain .card:hover{
+    background: #dfe4ea;
+    color: black;
+}
+.chatbotmain .card:hover p {
+    color: black;
+}
+
+.main-bottom{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    max-width: 900px;
+    padding: 0 20px;
+    margin: auto;
+}
+
+.search-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: #00b497;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.search-box img{
+    width: 18px;
+    cursor: pointer;
+}
+
+.search-box input{
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 16px; 
+}
+
+.search-box div{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.chatbotmain .bottom-info{
+    font-size: 11px;
+    margin: 15px auto;
+    text-align: center;
+    font-weight: 300;
+}
